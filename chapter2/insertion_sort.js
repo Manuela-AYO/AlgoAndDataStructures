@@ -7,7 +7,7 @@ function insertion_sort(tab) {
         Return:
             the sorted array
     */
-   for(let i=0; i<tab.length; i++) {
+   for(let i=1; i<tab.length; i++) {
         let key = tab[i];
         let j = i-1;
         while(j>=0 && tab[j] > key) {

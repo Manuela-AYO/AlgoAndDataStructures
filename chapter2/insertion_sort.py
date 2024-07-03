@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 def insertion_sort(tab: np.array) -> np.array:
     """
@@ -16,5 +17,8 @@ def insertion_sort(tab: np.array) -> np.array:
     return tab
 
 tab = np.array([5, 2, 4, 6, 1, 3])
+start = time.time()
 tab_sorted = insertion_sort(tab)
-print(tab_sorted)
+end = time.time()
+print(tab_sorted)  
+print(f"Done in {end-start} ms") 
