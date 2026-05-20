@@ -27,7 +27,7 @@ class Heap:
         try:
             A[-1], A[0] = A[0], A[-1]
             item = A.pop()
-            self.maxHeapify(A, 0)
+            self.maxHeapify(A, 0, len(A))
             return item
         except IndexError:
             raise IndexError("The heap is empty")
@@ -66,7 +66,7 @@ class Heap:
             i = smallest
 
 
-    def maxHeapify(self, A: List[Any], i: int):
+    def maxHeapify(self, A: List[Any], i: int, size: int):
         """
         Build a max-heap
         """
@@ -74,22 +74,42 @@ class Heap:
             greatest = i
             left = 2*i + 1
             right = 2*i + 2
-            if left < len(A) and A[left] > A[greatest]:
+            if left < size and A[left] > A[greatest]:
                 greatest = left
-            if right < len(A) and A[right] > A[greatest]:
+            if right < size and A[right] > A[greatest]:
                 greatest = right
             if greatest == i: break
             A[greatest], A[i] = A[i], A[greatest]
             i = greatest
 
+    
+    def buildMinHeap(self, A: List[Any]):
+        for i in range(len(A)//2-1, -1, -1):
+            self.minHeapify(A, i)
+
+    
+    def buildMaxHeap(self, A: List[Any]):
+        for i in range(len(A)//2-1, -1, -1):
+            self.maxHeapify(A, i, len(A))
+
+
+    def heapsort(self, A: List[Any]):
+        """ Sorts a max-heap """
+        self.buildMaxHeap(A)
+        print(A)
+        n = len(A)
+        while n > 1:
+            A[n-1], A[0] = A[0], A[n-1]
+            n -= 1
+            self.maxHeapify(A, 0, n) 
+
 
 if __name__ == "__main__":
-    my_heap = Heap()
-    h = []
-    my_heap.heappush_max(h, (5, 'write code'))
-    my_heap.heappush_max(h, (7, 'release product'))
-    my_heap.heappush_max(h, (1, 'write spec'))
-    my_heap.heappush_max(h, (3, 'create tests'))
-    #value = my_heap.heappop(h)
-    #print(value)
-    print(h)
+    A = [
+        (5, 'write code'), 
+        (7, 'release product'),
+        (1, 'write spec'), 
+        (3, 'create tests')
+    ]
+    Heap().heapsort(A)
+    print(A)
