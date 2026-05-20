@@ -1,30 +1,72 @@
 from graph import Graph
-from dfs import init_dfs
-from vertex import Vertex
 
 if __name__ == "__main__":
     adj_list = [
-        Vertex([1]),
-        Vertex([2, 4, 5]),
-        Vertex([3, 6]),
-        Vertex([2, 7]),
-        Vertex([0, 5]),
-        Vertex([6]),
-        Vertex([5, 7]),
-        Vertex([7])
+        [ (1, 1) ],
+        [ (2, 1), (4, 1), (5, 1) ],
+        [ (3, 1), (6, 1) ],
+        [ (2, 1), (7, 1) ],
+        [ (0, 1), (5, 1) ],
+        [ (6, 1) ],
+        [ (5, 1), (7, 1) ],
+        [ (7, 1) ]
     ]
 
-    graph = Graph()
-    sccs = graph.compute_scc(adj_list)
+    matrix = [
+        [0, 4, 0, 0, 0, 0, 0, 8, 0],
+        [4, 0, 8, 0, 0, 0, 0, 11, 0],
+        [0, 8, 0, 7, 0, 4, 0, 0, 2],
+        [0, 0, 7, 0, 9, 14, 0, 0, 0],
+        [0, 0, 0, 9, 0, 10, 0, 0, 0],
+        [0, 0, 4, 14, 10, 0, 2, 0, 0],
+        [0, 0, 0, 0, 0, 2, 0, 1, 6],
+        [8, 11, 0, 0, 0, 0, 1, 0, 7],
+        [0, 0, 2, 0, 0, 0, 6, 7, 0]
+    ]
+    
+    adj_list = [
+        # [s:0, t:1, y:2, x:3, z:4]
+        [ (1, 6), (2, 7) ],
+        [ (2, 8), (3, 5), (4, -4) ],
+        [ (3, -3), (4, 9) ],
+        [ (1, -2) ],
+        [ (0, 2), (3, 7) ]
+    ]
 
     adj_list = [
-        Vertex([(1, 1)]),
-        Vertex([2, 4, 5]),
-        Vertex([3, 6]),
-        Vertex([2, 7]),
-        Vertex([0, 5]),
-        Vertex([6]),
-        Vertex([5, 7]),
-        Vertex([7])
+        # [r:0, s:1, t:2, x:3, y:4, z:5]
+        [ (1, 5), (2, 3) ],
+        [ (2, 2), (3, 6) ],
+        [ (4, 4), (3, 7), (5, 2) ],
+        [ (4, -1), (5, 1) ],
+        [ (5, -2) ], 
+        []
     ]
-    print(sccs)
+
+    adj_list = [
+        [ (1, 1), (2, 1) ],
+        [ (2, 1)],
+        []
+    ]
+
+    adj_list = [
+        # [s:0, t:1, y:2, x:3, z:4]
+        [ (1, 10), (2, 5) ],
+        [ (2, 2), (3, 1) ],
+        [ (1, 3), (3, 9), (4, 2) ],
+        [ (4, 4) ],
+        [ (3, 6), (0, 7) ]
+    ]
+
+    graph = Graph(adj_list)
+    graph.dijkstra(0)
+    print(graph.get_predecessor_tree())
+    distances = graph.get_path_length()
+    print(distances)
+    print(sum(distances))
+
+
+"""
+TO-DO: add the complexity of all the important algorithms
+- perform dijkstra in general
+"""
